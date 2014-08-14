@@ -1,0 +1,17 @@
+This file defines many rules, how to write code in gstreamer-studio
+project. Purpose of these document is to make code more readable for
+other developers.
+
+Guidelines for Commit Message
+=============================
+
+At first you should remember, that every single commit should be attomic.
+Commit guidelines might be found here:
+
+  http://live.gnome.org/Git/CommitMessages
+
+
+C++ Coding Style Guigelines
+===========================
+
+// TODO

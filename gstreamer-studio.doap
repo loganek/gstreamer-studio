@@ -1,0 +1,27 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns="http://usefulinc.com/ns/doap#">
+
+  <!-- Project Info -->
+  <shortname>gstreamer-studio</shortname>
+  <created>2014-08-14</created>
+
+  <name xml:lang="en">Gstreamer Studio</name>
+  <shortdesc xml:lang="en">Easy way for GStreamer pipeline's prototyping</shortdesc>
+
+  <homepage rdf:resource="http://github.com/loganek/gstreamer-studio" />
+  <download-page rdf:resource="http://github.com/loganek/gstreamer-studio" />
+  <bug-database rdf:resource="https://github.com/loganek/gstreamer-studio/issues" />
+  <license rdf:resource="https://www.gnu.org/licenses/lgpl.html" />
+
+  <programming-language>C++</programming-language>
+
+  <!-- Maintainers -->
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Marcin Kolny</foaf:name>
+      <foaf:mbox rdf:resource="mailto:marcin.kolny@gmail.com" />
+    </foaf:Person>
+  </maintainer>
+</Project>
