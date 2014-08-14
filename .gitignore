@@ -19,3 +19,20 @@
 *.exe
 *.out
 *.app
+
+# autotools files
+Makefile
+Makefile.in
+aclocal.m4
+build
+config.log
+config.status
+configure
+
+# /
+/INSTALL
+/autom4te.cache
+
+# /src
+/src/.deps
+/src/gstreamer-studio
