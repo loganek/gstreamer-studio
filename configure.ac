@@ -15,9 +15,14 @@ AC_PROG_CXX
 AC_LANG([C++])
 AC_LANG_COMPILER_REQUIRE
 
+AC_PROG_RANLIB
+
+PKG_CHECK_MODULES([GTKMM], [gtkmm-3.0])
+
 CXXFLAGS="-Wall -Werror -std=c++11 $CXXFLAGS"
 
 AC_CONFIG_FILES([
+	src/clients/studio/Makefile
 	Makefile
 	src/Makefile
 ])

@@ -33,6 +33,6 @@ configure
 /INSTALL
 /autom4te.cache
 
-# /src
-/src/.deps
-/src/gstreamer-studio
+# /src/clients/studio
+/src/clients/studio/.deps
+/src/clients/studio/gstreamer-studio
