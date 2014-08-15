@@ -6,7 +6,7 @@ AC_INIT(
 	[http://github.com/loganek/gstreamer-studio])
 
 AC_PREREQ(2.69)
-AC_CONFIG_SRCDIR(src/main.cpp)
+
 AC_CONFIG_AUX_DIR(build)
 
 AM_INIT_AUTOMAKE
@@ -22,9 +22,9 @@ PKG_CHECK_MODULES([GTKMM], [gtkmm-3.0])
 CXXFLAGS="-Wall -Werror -std=c++11 $CXXFLAGS"
 
 AC_CONFIG_FILES([
-	src/clients/studio/Makefile
 	Makefile
-	src/Makefile
+	src/core/Makefile
+	src/clients/studio/Makefile
 ])
 
 AC_OUTPUT

@@ -1,2 +1,2 @@
-SUBDIRS = src src/clients/studio
+SUBDIRS = src/clients/studio src/core
 
