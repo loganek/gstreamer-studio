@@ -8,8 +8,23 @@ namespace Clients {
   
 class MainWindow
 {
+private:
   Glib::RefPtr<Gtk::Builder> builder;
   Gtk::ApplicationWindow* window = nullptr;
+
+  template<typename T>
+  T* get_widget (const Glib::ustring& name)
+  {
+    T* widget = nullptr;
+    builder->get_widget<T> (name, widget);
+
+    if (widget == nullptr)
+    {
+      throw std::runtime_error ("cannot get " + name + " widget");
+    }
+
+    return widget;
+  }
 
  public:
   MainWindow ();
