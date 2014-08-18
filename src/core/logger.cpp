@@ -1,5 +1,7 @@
 #include "logger.h"
 
+#include <glibmm.h>
+
 #include <ctime>
 #include <iostream>
 
@@ -73,4 +75,14 @@ std::string Logger::level_to_string (LogLevel level)
   default:
     return "Unknown log level";
   }
+}
+
+void Logger::log (const std::exception& ex, LogLevel level)
+{
+  log (std::string ("standard exception: ") + ex.what (), level);
+}
+
+void Logger::log (const Glib::Exception& ex, LogLevel level)
+{
+  log (std::string ("glib exception: ") + ex.what (), level);
 }

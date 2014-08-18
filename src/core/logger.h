@@ -7,6 +7,10 @@
 #include <fstream>
 #include <mutex>
 
+namespace Glib {
+class Exception;
+}
+
 namespace GstreamerStudio {
 namespace Core {
 
@@ -44,6 +48,7 @@ class Logger
   void set_debug_level (LogLevel level);
   void log (const std::string& message, LogLevel level);
   void log (const std::exception& ex, LogLevel level);
+  void log (const Glib::Exception& ex, LogLevel level);
 
   static Logger* get_instance ();
 
