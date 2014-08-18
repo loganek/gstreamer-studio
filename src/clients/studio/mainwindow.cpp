@@ -1,12 +1,18 @@
 #include "mainwindow.h"
 #include "sigcpp_lambda_hack.h"
 
+#include "core/logger.h"
+
 using namespace GstreamerStudio::Clients;
+using namespace GstreamerStudio::Core;
 using namespace Gtk;
 using namespace Glib;
 
 MainWindow::MainWindow ()
 {
+  Logger* logger = Logger::get_instance ();
+  bool build_ok = true;
+
   try
   {
     builder = Builder::create_from_file ("src/clients/studio/ui/mainwindow.glade");
@@ -17,28 +23,41 @@ MainWindow::MainWindow ()
       about->close ();
       return true;
     });
+
+    get_widget<Gtk::MenuItem> ("quitMenuItem")->signal_button_press_event ().connect ([this, logger] (GdkEventButton*) {
+      get_window ()->hide ();
+      return true;
+    });
   }
   catch (const FileError& ex)
   {
-    // todo: error handler
+    logger->log (ex, LogLevel::ERROR);
+    build_ok = false;
   }
   catch (const MarkupError& ex)
   {
-    // todo: error handler
+    logger->log (ex, LogLevel::ERROR);
+    build_ok = false;
   }
   catch (const BuilderError& ex)
   {
-    // todo: error handler
+    logger->log (ex, LogLevel::ERROR);
+    build_ok = false;
   }
   catch (const std::runtime_error& ex)
   {
-    // todo: error handler (get_widget)
+    logger->log (ex, LogLevel::ERROR);
+    build_ok = false;
+  }
+
+  if (!build_ok)
+  {
+    throw std::runtime_error ("cannot create application's main window");
   }
 }
 
 MainWindow::~MainWindow ()
 {
-  delete window;
 }
 
 Gtk::ApplicationWindow* MainWindow::get_window ()
