@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "sigcpp_lambda_hack.h"
+#include "plugininspector.h"
 
 #include "core/logger.h"
 
@@ -28,6 +29,10 @@ MainWindow::MainWindow ()
       get_window ()->hide ();
       return true;
     });
+
+    TreeView *inspector_tree = get_widget<TreeView> ("pluginsInspectorTreeView");
+    plugins_inspector = std::make_shared<PluginInspector> (inspector_tree);
+
   }
   catch (const FileError& ex)
   {

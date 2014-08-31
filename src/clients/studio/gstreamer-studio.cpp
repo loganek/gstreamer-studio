@@ -8,13 +8,14 @@ using namespace GstreamerStudio::Clients;
 
 int main (int argc, char *argv[])
 {
-  Glib::RefPtr<Gtk::Application> app = Gtk::Application::create(argc, argv, "org.gtkmm.test");
+  Gst::init (argc, argv);
+  Glib::RefPtr<Gtk::Application> app = Gtk::Application::create (argc, argv, "org.gtkmm.test");
   
   try
   {
     MainWindow window;
 
-    app->run(*(window.get_window()));
+    app->run (*(window.get_window ()));
   }
   catch (const std::runtime_error& ex)
   {

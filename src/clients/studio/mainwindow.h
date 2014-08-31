@@ -3,14 +3,19 @@
 
 #include <gtkmm.h>
 
+#include <memory>
+
 namespace GstreamerStudio {
 namespace Clients {
-  
+
+class PluginInspector;
+
 class MainWindow
 {
 private:
   Glib::RefPtr<Gtk::Builder> builder;
   Gtk::ApplicationWindow* window = nullptr;
+  std::shared_ptr<PluginInspector> plugins_inspector;
 
   template<typename T>
   T* get_widget (const Glib::ustring& name)
