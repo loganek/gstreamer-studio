@@ -19,6 +19,7 @@ AC_PROG_RANLIB
 
 PKG_CHECK_MODULES([GTKMM], [gtkmm-3.0])
 PKG_CHECK_MODULES([GLIBMM], [glibmm-2.4])
+PKG_CHECK_MODULES([GSTREAMERMM], [gstreamermm-1.0])
 
 CXXFLAGS="-Wall -Werror -std=c++11 $CXXFLAGS"
 
