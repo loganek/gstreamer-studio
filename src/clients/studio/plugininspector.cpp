@@ -1,5 +1,7 @@
 #include "plugininspector.h"
 #include "sigcpp_lambda_hack.h"
+#include "plugininfowindow.h"
+#include "factoryinfowindow.h"
 
 #include "core/logger.h"
 #include "core/plugininfo.h"
@@ -11,7 +13,6 @@ using GstreamerStudio::Core::LogLevel;
 PluginInspector::PluginInspector (TreeView* tree)
 : view (tree)
 {
-  Gst::init();
   logger = GstreamerStudio::Core::Logger::get_instance ();
   plugin_info = new GstreamerStudio::Core::PluginInfo ();
 
@@ -26,6 +27,15 @@ PluginInspector::PluginInspector (TreeView* tree)
     Glib::ustring plugin_name;
     it->get_value (0, plugin_name);
     logger->log ("Selected plugin " + plugin_name, LogLevel::INFO);
+
+    if (!it->parent ())
+    {
+      std::make_shared<PluginInfoWindow> (plugin_name)->show_window ();
+    }
+    else if (it->children ().empty ())
+    {
+      std::make_shared<FactoryInfoWindow> (plugin_name)->show_window ();
+    }
   });
 
   model = TreeStore::create(model_columns);
