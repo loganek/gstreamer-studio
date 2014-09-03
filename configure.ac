@@ -11,6 +11,11 @@ AC_CONFIG_AUX_DIR(build)
 
 AM_INIT_AUTOMAKE
 
+AM_GNU_GETTEXT_VERSION([0.18.3])
+AM_GNU_GETTEXT([external])
+
+AC_CONFIG_HEADER([src/config.h])
+
 AC_PROG_CXX
 AC_LANG([C++])
 AC_LANG_COMPILER_REQUIRE
@@ -23,7 +28,7 @@ PKG_CHECK_MODULES([GSTREAMERMM], [gstreamermm-1.0])
 
 CXXFLAGS="-Wall -Werror -std=c++11 $CXXFLAGS"
 
-AC_CONFIG_FILES([
+AC_CONFIG_FILES([ po/Makefile.in
 	Makefile
 	src/core/Makefile
 	src/clients/studio/Makefile

@@ -1,0 +1,119 @@
+# Polish translations for gstreamer-studio package.
+# Copyright (C) 2014 Marcin Kolny
+# This file is distributed under the same license as the gstreamer-studio package.
+# Marcin Kolny <marcin.kolny@gmail.com>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gstreamer-studio 0.1\n"
+"Report-Msgid-Bugs-To: https://github.com/loganek/gstreamer-studio/issues\n"
+"POT-Creation-Date: 2014-09-04 02:00+0200\n"
+"PO-Revision-Date: 2014-09-04 00:42+0200\n"
+"Last-Translator: Marcin Kolny <marcin.kolny@gmail.com>\n"
+"Language-Team: Polish\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+#: src/clients/studio/factoryinfowindow.cpp:27
+#: src/clients/studio/plugininfowindow.cpp:26
+msgid "Key"
+msgstr "Klucz"
+
+#: src/clients/studio/factoryinfowindow.cpp:28
+#: src/clients/studio/plugininfowindow.cpp:27
+msgid "Value"
+msgstr "Wartosc"
+
+#: src/core/plugininfo.cpp:92
+msgid "Name"
+msgstr "Nazwa"
+
+#: src/core/plugininfo.cpp:93
+msgid "Description"
+msgstr "Opis"
+
+#: src/core/plugininfo.cpp:94
+msgid "Filename"
+msgstr "Nazwa pliku"
+
+#: src/core/plugininfo.cpp:95
+msgid "Version"
+msgstr "Wersja"
+
+#: src/core/plugininfo.cpp:96
+msgid "License"
+msgstr "Licencja"
+
+#: src/core/plugininfo.cpp:97
+msgid "Source module"
+msgstr "Modul zrodlowy"
+
+#: src/core/plugininfo.cpp:98
+msgid "Source release date"
+msgstr "Data wydania zrodla"
+
+#: src/core/plugininfo.cpp:99
+msgid "Binary package"
+msgstr "Pakiet binarny"
+
+#: src/core/plugininfo.cpp:100
+msgid "Origin URL"
+msgstr "Zrodlowy adres URL"
+
+#: src/clients/studio/ui/mainwindow.glade:9
+msgid "Gstreamer Studio is an IDE for GStreamer-based applications. "
+msgstr ""
+"Gstreamer Studio jest zintegrowanym srodowiskiem programistycznym do "
+"tworzenia aplikacji w oparciu o biblioteke GStreamer"
+
+#: src/clients/studio/ui/mainwindow.glade:11
+msgid "Author's blog\t"
+msgstr ""
+
+#: src/clients/studio/ui/mainwindow.glade:14
+msgid "Marcin Kolny"
+msgstr ""
+
+#: src/clients/studio/ui/mainwindow.glade:57
+msgid "_File"
+msgstr "Plik"
+
+#: src/clients/studio/ui/mainwindow.glade:122
+msgid "_Edit"
+msgstr "_Edycja"
+
+#: src/clients/studio/ui/mainwindow.glade:172
+msgid "_View"
+msgstr "_Widok"
+
+#: src/clients/studio/ui/mainwindow.glade:180
+msgid "_Help"
+msgstr "_Pomoc"
+
+#: src/clients/studio/ui/plugininfo.glade:17
+msgid "Metadata:"
+msgstr ""
+
+#: src/clients/studio/ui/plugininfo.glade:43
+msgid "Pad templates:"
+msgstr ""
+
+#: src/clients/studio/ui/plugininfo.glade:58
+msgid "Pads:"
+msgstr ""
+
+#: src/clients/studio/ui/plugininfo.glade:73
+msgid "Properties:"
+msgstr ""
+
+#: src/clients/studio/ui/plugininfo.glade:86
+msgid "Plugin details"
+msgstr ""
+
+#: src/clients/studio/ui/plugininfo.glade:112
+msgid "Plugin details:"
+msgstr ""

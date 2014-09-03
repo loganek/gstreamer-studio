@@ -7,6 +7,6 @@ gstreamer_studio_SOURCES = \
 							plugininfowindow.cpp \
 							factoryinfowindow.cpp
 
-gstreamer_studio_CPPFLAGS = $(GTKMM_CFLAGS) $(GSTREAMERMM_CFLAGS) -I../../
-gstreamer_studio_LDADD =  -L../../core -lgstreamer-studio-core $(GSTREAMERMM_LIBS) $(GTKMM_LIBS)
+gstreamer_studio_CPPFLAGS = $(GTKMM_CFLAGS) $(GSTREAMERMM_CFLAGS) -I../../ -DLOCALEDIR=\"$(localedir)\"
+gstreamer_studio_LDADD =  -L../../core -lgstreamer-studio-core $(GSTREAMERMM_LIBS) $(GTKMM_LIBS) $(LIBINTL)
 

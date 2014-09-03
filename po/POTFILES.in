@@ -1,0 +1,6 @@
+# List of source files which contain translatable strings.
+src/clients/studio/factoryinfowindow.cpp
+src/clients/studio/plugininfowindow.cpp
+src/core/plugininfo.cpp
+src/clients/studio/ui/mainwindow.glade
+src/clients/studio/ui/plugininfo.glade

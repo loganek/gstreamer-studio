@@ -9,6 +9,8 @@
 
 #include "core/plugininfo.h"
 
+#include "gettext.h"
+
 using namespace GstreamerStudio::Clients;
 using namespace Gtk;
 
@@ -21,8 +23,8 @@ PluginInfoWindow::PluginInfoWindow (const std::string& plugin_name)
   Glib::RefPtr<ListStore> model = ListStore::create (model_columns);
   TreeView *tree = get_widget<TreeView> ("pluginTreeView");
 
-  tree->append_column("Key", model_columns.key);
-  tree->append_column("Value", model_columns.value);
+  tree->append_column(_("Key"), model_columns.key);
+  tree->append_column(_("Value"), model_columns.value);
   tree->set_model (model);
 
   for (auto item : GstreamerStudio::Core::PluginInfo ().get_plugin_info (plugin_name))

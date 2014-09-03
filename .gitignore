@@ -4,6 +4,9 @@
 *.o
 *.obj
 
+# Backup files
+*~
+
 # Compiled Dynamic libraries
 *.so
 *.dylib
@@ -28,10 +31,30 @@ build
 config.log
 config.status
 configure
+src/config.h
+src/stamp-h1
+
+# /po
+/po/Makefile.in.in
+/po/Makevars.template
+/po/POTFILES
+/po/Rules-quot
+/po/boldquot.sed
+/po/remove-potcdate.sed
+/po/en@boldquot.header
+/po/en@quot.header
+/po/insert-header.sin
+/po/quot.sed
+/po/remove-potcdate.sin
+/po/stamp-po
+/po/*.gmo
+
 
 # /
 /INSTALL
 /autom4te.cache
+/m4
+/ABOUT-NLS
 
 # /src/clients/studio
 /src/clients/studio/.deps

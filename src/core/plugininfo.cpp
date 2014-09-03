@@ -7,6 +7,8 @@
 
 #include "plugininfo.h"
 
+#include "gettext.h"
+
 namespace GstreamerStudio {
 namespace Core {
 
@@ -87,15 +89,15 @@ PluginInfo::unsorted_map PluginInfo::get_plugin_info (const std::string& plugin_
   }
 
   unsorted_map plugin_info = {
-      std::make_pair ("Name", plugin->get_name ()),
-      std::make_pair ("Description", plugin->get_description ()),
-      std::make_pair ("Filename", plugin->get_filename ()),
-      std::make_pair ("Version", plugin->get_version ()),
-      std::make_pair ("License", plugin->get_license ()),
-      std::make_pair ("Source module", plugin->get_source ()),
-      std::make_pair ("Source release date", plugin->get_release_date_string ()),
-      std::make_pair ("Binary package", plugin->get_package ()),
-      std::make_pair ("Origin URL", plugin->get_origin ())
+      std::make_pair (_("Name"), plugin->get_name ()),
+      std::make_pair (_("Description"), plugin->get_description ()),
+      std::make_pair (_("Filename"), plugin->get_filename ()),
+      std::make_pair (_("Version"), plugin->get_version ()),
+      std::make_pair (_("License"), plugin->get_license ()),
+      std::make_pair (_("Source module"), plugin->get_source ()),
+      std::make_pair (_("Source release date"), plugin->get_release_date_string ()),
+      std::make_pair (_("Binary package"), plugin->get_package ()),
+      std::make_pair (_("Origin URL"), plugin->get_origin ())
   };
 
   return plugin_info;

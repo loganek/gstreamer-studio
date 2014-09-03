@@ -1,0 +1,116 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Marcin Kolny
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: gstreamer-studio 0.1\n"
+"Report-Msgid-Bugs-To: https://github.com/loganek/gstreamer-studio/issues\n"
+"POT-Creation-Date: 2014-09-04 02:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/clients/studio/factoryinfowindow.cpp:27
+#: src/clients/studio/plugininfowindow.cpp:26
+msgid "Key"
+msgstr ""
+
+#: src/clients/studio/factoryinfowindow.cpp:28
+#: src/clients/studio/plugininfowindow.cpp:27
+msgid "Value"
+msgstr ""
+
+#: src/core/plugininfo.cpp:92
+msgid "Name"
+msgstr ""
+
+#: src/core/plugininfo.cpp:93
+msgid "Description"
+msgstr ""
+
+#: src/core/plugininfo.cpp:94
+msgid "Filename"
+msgstr ""
+
+#: src/core/plugininfo.cpp:95
+msgid "Version"
+msgstr ""
+
+#: src/core/plugininfo.cpp:96
+msgid "License"
+msgstr ""
+
+#: src/core/plugininfo.cpp:97
+msgid "Source module"
+msgstr ""
+
+#: src/core/plugininfo.cpp:98
+msgid "Source release date"
+msgstr ""
+
+#: src/core/plugininfo.cpp:99
+msgid "Binary package"
+msgstr ""
+
+#: src/core/plugininfo.cpp:100
+msgid "Origin URL"
+msgstr ""
+
+#: src/clients/studio/ui/mainwindow.glade:9
+msgid "Gstreamer Studio is an IDE for GStreamer-based applications. "
+msgstr ""
+
+#: src/clients/studio/ui/mainwindow.glade:11
+msgid "Author's blog\t"
+msgstr ""
+
+#: src/clients/studio/ui/mainwindow.glade:14
+msgid "Marcin Kolny"
+msgstr ""
+
+#: src/clients/studio/ui/mainwindow.glade:57
+msgid "_File"
+msgstr ""
+
+#: src/clients/studio/ui/mainwindow.glade:122
+msgid "_Edit"
+msgstr ""
+
+#: src/clients/studio/ui/mainwindow.glade:172
+msgid "_View"
+msgstr ""
+
+#: src/clients/studio/ui/mainwindow.glade:180
+msgid "_Help"
+msgstr ""
+
+#: src/clients/studio/ui/plugininfo.glade:17
+msgid "Metadata:"
+msgstr ""
+
+#: src/clients/studio/ui/plugininfo.glade:43
+msgid "Pad templates:"
+msgstr ""
+
+#: src/clients/studio/ui/plugininfo.glade:58
+msgid "Pads:"
+msgstr ""
+
+#: src/clients/studio/ui/plugininfo.glade:73
+msgid "Properties:"
+msgstr ""
+
+#: src/clients/studio/ui/plugininfo.glade:86
+msgid "Plugin details"
+msgstr ""
+
+#: src/clients/studio/ui/plugininfo.glade:112
+msgid "Plugin details:"
+msgstr ""
