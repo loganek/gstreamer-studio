@@ -22,6 +22,7 @@ private:
   Gtk::Window* window = nullptr;
 
   TwoColumnModel model_columns;
+  TwoColumnModel properties_model_columns;
 
 public:
   FactoryInfoWindow (const std::string& factory_name);

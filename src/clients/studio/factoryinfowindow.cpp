@@ -9,9 +9,11 @@
 #include "plugininfowindow.h"
 
 #include "core/plugininfo.h"
+#include "core/propertycontainer.h"
 
 #include "gettext.h"
 
+using namespace GstreamerStudio;
 using namespace GstreamerStudio::Clients;
 using namespace Gtk;
 
@@ -40,6 +42,22 @@ FactoryInfoWindow::FactoryInfoWindow (const std::string& factory_name)
   get_widget<Button> ("pluginDetailsButton")->signal_clicked ().connect ([factory_name, plugin_info]{
       std::make_shared<PluginInfoWindow> (plugin_info.get_factory_plugin (factory_name))->show_window ();
   });
+
+  Glib::RefPtr<ListStore> properties_model = ListStore::create (properties_model_columns);
+  TreeView *props_tree = get_widget<TreeView> ("propertiesTreeView");
+
+  props_tree->append_column(_("Property"), properties_model_columns.key);
+  props_tree->append_column(_("Value"), properties_model_columns.value);
+  props_tree->set_model (properties_model);
+
+  Core::PropertyContainer props(Gst::ElementFactory::create_element(factory_name));
+
+  for (auto property : props.get_properties())
+  {
+    TreeModel::Row row = *(properties_model->append());
+    row[properties_model_columns.key] = property->get_name();
+    row[properties_model_columns.value] = property->get_description();
+  }
 }
 
 FactoryInfoWindow::~FactoryInfoWindow ()
