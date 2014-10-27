@@ -31,7 +31,8 @@ MainWindow::MainWindow ()
     });
 
     TreeView *inspector_tree = get_widget<TreeView> ("pluginsInspectorTreeView");
-    plugins_inspector = std::make_shared<PluginInspector> (inspector_tree);
+    SearchEntry *inspector_searchbox = get_widget<SearchEntry>("searchPluginSearchEntry");
+    plugins_inspector = std::make_shared<PluginInspector> (inspector_tree, inspector_searchbox);
 
   }
   catch (const FileError& ex)

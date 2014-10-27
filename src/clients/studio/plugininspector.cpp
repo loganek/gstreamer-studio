@@ -10,8 +10,10 @@ using namespace GstreamerStudio::Clients;
 using namespace Gtk;
 using GstreamerStudio::Core::LogLevel;
 
-PluginInspector::PluginInspector (TreeView* tree)
-: view (tree)
+
+PluginInspector::PluginInspector (TreeView* tree, SearchEntry *searchbox)
+: view (tree),
+  searchbox(searchbox)
 {
   logger = GstreamerStudio::Core::Logger::get_instance ();
   plugin_info = new GstreamerStudio::Core::PluginInfo ();
@@ -40,10 +42,14 @@ PluginInspector::PluginInspector (TreeView* tree)
 
   model = TreeStore::create(model_columns);
 
+  auto filter = Gtk::TreeModelFilter::create(model);
+  filter->set_visible_func(sigc::mem_fun(*this, &PluginInspector::filter_func));
   tree->append_column("Plugin", model_columns.plugin_name);
-  tree->set_model (model);
+  tree->set_model (filter);
 
   fill_tree ();
+
+  searchbox->signal_changed().connect([filter]{filter->refilter();});
 }
 
 PluginInspector::~PluginInspector ()
@@ -64,6 +70,36 @@ void PluginInspector::fill_tree()
       (*rw)[model_columns.plugin_name] = items.get_name();
     }
   }
+}
+
+bool PluginInspector::check_children_filter (TreeModel::iterator& it)
+{
+  int cnt = 0;
+  do {
+    Glib::ustring data;
+    it->get_value (0, data);
+
+    if (searchbox->get_text () == data.substr(0, searchbox->get_text ().size ()))
+      cnt++;
+    else if (it->children().size () > 0)
+      cnt += check_children_filter (++it);
+  } while (++it);
+
+  return cnt > 0;
+}
+
+bool PluginInspector::filter_func (const TreeModel::iterator& it)
+{
+  Glib::ustring data;
+  it->get_value(0, data);
+  if (searchbox->get_text () == data.substr (0, searchbox->get_text ().size ()))
+    return true;
+  else if(it->children().size() > 0)
+  {
+    auto i = const_cast<TreeModel::iterator&> (it)->children ().begin ();
+	  return check_children_filter (i);
+  }
+  return false;
 }
 
 PluginInspector::PluginsModelColumns::PluginsModelColumns ()

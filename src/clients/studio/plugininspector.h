@@ -29,11 +29,15 @@ private:
 
   PluginsModelColumns model_columns;
   Glib::RefPtr<Gtk::TreeStore> model;
-  Gtk::TreeView* view;
+  Gtk::TreeView *view;
+  Gtk::SearchEntry *searchbox;
 
   void fill_tree ();
+  bool filter_func(const Gtk::TreeModel::const_iterator& it);
+  bool check_children_filter (Gtk::TreeModel::iterator& it);
+
 public:
-  PluginInspector (Gtk::TreeView* tree);
+  PluginInspector (Gtk::TreeView *tree, Gtk::SearchEntry *searchbox);
   virtual ~PluginInspector ();
 
 };
