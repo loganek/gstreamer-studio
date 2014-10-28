@@ -4,6 +4,7 @@
 #include "buildablegtk.h"
 
 #include <gtkmm.h>
+#include <goocanvasmm-2.0/goocanvasmm.h>
 
 #include <memory>
 
@@ -17,6 +18,7 @@ class MainWindow : public BuildableGtk
 private:
   Gtk::ApplicationWindow* window = nullptr;
   std::shared_ptr<PluginInspector> plugins_inspector;
+  Goocanvas::Canvas canvas;
 
 public:
   MainWindow ();

@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "sigcpp_lambda_hack.h"
 #include "plugininspector.h"
+#include "elementitem.h"
 
 #include "core/logger.h"
 
@@ -33,7 +34,12 @@ MainWindow::MainWindow ()
     TreeView *inspector_tree = get_widget<TreeView> ("pluginsInspectorTreeView");
     SearchEntry *inspector_searchbox = get_widget<SearchEntry>("searchPluginSearchEntry");
     plugins_inspector = std::make_shared<PluginInspector> (inspector_tree, inspector_searchbox);
+    canvas.set_size_request(100, 100);
+    canvas.set_bounds(0, 0, 1000, 1000);
+    canvas.show();
 
+    auto c = ElementItem::create(Gst::ElementFactory::create_element("identity"), canvas.get_root_item ());
+    get_widget<ScrolledWindow>("canvasScrolledWindow")->add(canvas);
   }
   catch (const FileError& ex)
   {
