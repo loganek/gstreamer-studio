@@ -14,7 +14,7 @@ PropertyContainer::PropertyContainer (const std::string& factory_name)
   element = Gst::ElementFactory::create_element (factory_name);
   init ();
 }
-PropertyContainer::PropertyContainer (const Glib::RefPtr<Gst::Element>& element)
+PropertyContainer::PropertyContainer (Glib::RefPtr<Gst::Element> element)
 : element (element)
 {
   init ();

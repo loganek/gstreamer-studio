@@ -28,7 +28,7 @@ private:
 
 public:
   PropertyContainer (const std::string& factory_name);
-  PropertyContainer (const Glib::RefPtr<Gst::Element>& element);
+  PropertyContainer (Glib::RefPtr<Gst::Element> element);
   virtual ~PropertyContainer ();
 
   std::vector<std::shared_ptr<GstProperty>> get_properties () const;
