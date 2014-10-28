@@ -20,13 +20,14 @@ ElementItem::ElementItem (const RefPtr<Element>& model)
 {
   signal_motion_notify_event ().connect ([this] (const Glib::RefPtr<Goocanvas::Item>& item,GdkEventMotion* motion) {
     if (grabbed)
-      ElementItem::get_from_child (item)->translate (motion->x, motion->y);
+      ElementItem::get_from_child (item)->translate (motion->x - grab_point.x, motion->y - grab_point.y);
       return false;
   });
 
   signal_button_press_event ().connect ([this] (const Glib::RefPtr<Goocanvas::Item>& item, GdkEventButton* evt) {
     auto cur = Gdk::Cursor::create (Gdk::FLEUR);
     grabbed = true;
+    grab_point.update (evt->x, evt->y);
     item->get_canvas ()->pointer_grab (item, (Gdk::EventMask)(GDK_POINTER_MOTION_MASK | GDK_BUTTON_RELEASE_MASK), cur, evt->time);
     return false;
   });
