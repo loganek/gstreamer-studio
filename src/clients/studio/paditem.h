@@ -26,6 +26,11 @@ protected:
 public:
   static Glib::RefPtr<PadItem> create (const Glib::RefPtr<Gst::Pad>& model, const Glib::RefPtr<Goocanvas::Item>& parent);
 
+  // we need it, because property_{width|height} not working in all cases...
+  double get_height () const;
+  double get_width () const;
+
+  bool is_sink () const;
 };
 
 }

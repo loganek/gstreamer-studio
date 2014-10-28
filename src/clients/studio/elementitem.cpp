@@ -42,28 +42,64 @@ RefPtr<ElementItem> ElementItem::create (const RefPtr<Element>& model, const Gli
 {
   RefPtr<ElementItem> item (new ElementItem (model));
   parent->add_child (item);
-  item->init ();
+  item->redraw ();
+
   return item;
 }
 
 void ElementItem::init()
 {
-  auto t = Text::create(model->get_name(), 20, 20, 100, ANCHOR_CENTER);
-  add_child (t);
+  title = Text::create(model->get_name(), 0, 0, 100, ANCHOR_CENTER);
+  add_child (title);
 
   // cast is necessary, because of bug: https://bugzilla.gnome.org/show_bug.cgi?id=721627
-  auto bounds = RefPtr<Item>::cast_static(t)->get_bounds();
-  auto r = Rect::create(bounds.get_x1 () - 10, bounds.get_y1 () - 10, bounds.get_x2 () - bounds.get_x1 () + 20, bounds.get_y2 () - bounds.get_y1 () + 120);
-  r->property_fill_color().set_value("aliceblue");
-  add_child (r);
-  r->lower();
+  auto title_bounds = RefPtr<Item>::cast_static(title)->get_bounds();
 
-  auto sink_iterator = model->iterate_pads ();
+  bounding_rectangle = Rect::create(title_bounds.get_x1 (), title_bounds.get_y1 (), 0, 0);
+  bounding_rectangle->property_fill_color ().set_value ("aliceblue");
+  add_child (bounding_rectangle);
+  bounding_rectangle->lower ();
 
+  auto sink_iterator = model->iterate_sink_pads ();
+
+  double title_width = title_bounds.get_x2 () - title_bounds.get_x1 ();
+  double lh = title_bounds.get_y2 () - title_bounds.get_y1 ();;
+  double rh = lh;
+  double lw = 0;
   while (sink_iterator.next ())
   {
     RefPtr<ElementItem> e (this); e->reference ();
-    PadItem::create (*sink_iterator, e);
+    auto pad_item = PadItem::create (*sink_iterator, e);
+    pad_item->translate (0, lh);
+    lh += pad_item->get_height ();
+    lw = std::max (pad_item->get_width (), lw);
+  }
+
+  auto src_iterator = model->iterate_src_pads ();
+
+  double rw = 0;
+  while (src_iterator.next ())
+  {
+    RefPtr<ElementItem> e (this); e->reference ();
+    auto pad_item = PadItem::create (*src_iterator, e);
+    pad_item->translate (0, rh);
+    rh += pad_item->get_height ();
+    rw = std::max (pad_item->get_width (), rw);
+  }
+
+  bounding_rectangle->property_height () = std::max (lh, rh);
+  bounding_rectangle->property_width () = std::max (lw+rw, title_width);
+
+  int mm =get_n_children();
+  for (int i = 0; i < mm; i++)
+  {
+    if (auto a = RefPtr<PadItem>::cast_dynamic(get_child(i)))
+    {
+      if (a->is_sink ())
+        continue;
+      double mw = get_width ();
+      a->translate (mw, 0);
+    }
   }
 }
 
@@ -78,4 +114,30 @@ RefPtr<ElementItem> ElementItem::get_from_child (const RefPtr<Goocanvas::Item>& 
   }
 
   return RefPtr<ElementItem>::cast_dynamic (i);
+}
+
+void ElementItem::redraw ()
+{
+  clear ();
+  init ();
+}
+
+void ElementItem::clear ()
+{
+  while (get_n_children ())
+    remove_child (0);
+}
+
+double ElementItem::get_height () const
+{
+  Bounds bounds = get_bounds();
+
+  return bounds.get_y2 () - bounds.get_y1 ();
+}
+
+double ElementItem::get_width () const
+{
+  Bounds bounds = get_bounds();
+
+  return bounds.get_x2 () - bounds.get_x1 ();
 }

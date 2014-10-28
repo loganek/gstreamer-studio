@@ -20,7 +20,12 @@ private:
   Glib::RefPtr<Gst::Element> model;
   bool grabbed = false;
 
-  void init();
+  Glib::RefPtr<Goocanvas::Rect> bounding_rectangle;
+  Glib::RefPtr<Goocanvas::Text> title;
+
+  void init ();
+  void clear ();
+  void redraw ();
 protected:
   explicit ElementItem (const Glib::RefPtr<Gst::Element>& model);
 
@@ -28,6 +33,10 @@ public:
   static Glib::RefPtr<ElementItem> create (const Glib::RefPtr<Gst::Element>& model, const Glib::RefPtr<Goocanvas::Item>& parent);
 
   static Glib::RefPtr<ElementItem> get_from_child (const Glib::RefPtr<Goocanvas::Item>& item);
+
+  // todo ough, copy&paste from PadItem class
+  double get_height () const;
+  double get_width () const;
 };
 
 }
