@@ -204,6 +204,41 @@
           </packing>
         </child>
         <child>
+          <object class="GtkToolbar" id="toolbar1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkToolButton" id="addElementToolButton">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="use_underline">True</property>
+                <property name="icon_name">list-add</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="removeElementToolButton">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="use_underline">True</property>
+                <property name="icon_name">list-remove</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkBox" id="box2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -279,7 +314,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </object>
