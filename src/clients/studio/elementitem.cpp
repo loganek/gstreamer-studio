@@ -21,7 +21,7 @@ ElementItem::ElementItem (const RefPtr<Element>& model)
   signal_motion_notify_event ().connect ([this] (const Glib::RefPtr<Goocanvas::Item>& item,GdkEventMotion* motion) {
     if (grabbed)
       ElementItem::get_from_child (item)->translate (motion->x - grab_point.x, motion->y - grab_point.y);
-      return false;
+    return false;
   });
 
   signal_button_press_event ().connect ([this] (const Glib::RefPtr<Goocanvas::Item>& item, GdkEventButton* evt) {

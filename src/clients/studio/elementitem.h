@@ -8,25 +8,13 @@
 #ifndef ELEMENTITEM_H_
 #define ELEMENTITEM_H_
 
+#include "point.h"
+
 #include <goocanvasmm-2.0/goocanvasmm.h>
 #include <gstreamermm.h>
 
 namespace GstreamerStudio {
 namespace Clients {
-
-// todo I'm almost sure, in goocanvas library is a similar class...
-template<typename T>
-struct Point
-{
-  T x;
-  T y;
-
-  void update (const T& x, const T& y)
-  {
-    this->x = x;
-    this->y = y;
-  }
-};
 
 class ElementItem : public Goocanvas::Group
 {

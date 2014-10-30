@@ -7,7 +7,8 @@ gstreamer_studio_SOURCES = \
 							plugininfowindow.cpp \
 							factoryinfowindow.cpp \
 							elementitem.cpp \
-							paditem.cpp
+							paditem.cpp \
+							linkitem.cpp
 
 gstreamer_studio_CPPFLAGS = $(GTKMM_CFLAGS) $(GOOCANVASMM_CFLAGS) $(GSTREAMERMM_CFLAGS) -I../../ -DLOCALEDIR=\"$(localedir)\"
 gstreamer_studio_LDADD =  -L../../core -lgstreamer-studio-core $(GSTREAMERMM_LIBS) $(GOOCANVASMM_LIBS) $(GTKMM_LIBS) $(LIBINTL)

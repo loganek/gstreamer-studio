@@ -8,6 +8,8 @@
 #ifndef PADITEM_H_
 #define PADITEM_H_
 
+#include "linkitem.h"
+
 #include <goocanvasmm-2.0/goocanvasmm.h>
 #include <gstreamermm.h>
 
@@ -18,6 +20,8 @@ class PadItem : public Goocanvas::Group
 {
 private:
   Glib::RefPtr<Gst::Pad> model;
+  Glib::RefPtr<LinkItem> link;
+  bool linking = false;
 
   void init ();
 protected:

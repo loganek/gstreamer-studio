@@ -6,6 +6,8 @@
  */
 
 #include "paditem.h"
+#include "linkitem.h"
+#include "sigcpp_lambda_hack.h"
 
 using namespace Goocanvas;
 using namespace GstreamerStudio::Clients;
@@ -16,6 +18,31 @@ PadItem::PadItem (const RefPtr<Pad>& model)
 : Group (),
   model (model)
 {
+  signal_button_press_event ().connect ([this] (const Glib::RefPtr<Goocanvas::Item>& item, GdkEventButton* evt) {
+    RefPtr<PadItem> this_pad (this); this_pad->reference ();
+    linking = true;
+    Point<double> begin (
+      get_bounds ().get_x2 (),
+      (get_bounds ().get_y2 () + get_bounds ().get_y1 ()) / 2),
+      end (evt->x_root, evt->y_root);
+    link = LinkItem::create (begin, end, this->get_parent());
+    return true;
+  });
+
+  signal_motion_notify_event ().connect ([this] (const Glib::RefPtr<Goocanvas::Item>& item,GdkEventMotion* motion) {
+    if (linking)
+    {
+      Points pts = link->property_points ().get_value ();
+      pts.set_coordinate(1, motion->x_root,  motion->y_root);
+      link->property_points () = pts;
+    }
+    return true;
+  });
+
+  signal_button_release_event ().connect ([this] (const Glib::RefPtr<Goocanvas::Item>& item, GdkEventButton* evt) {
+    linking = false;
+    return false;
+  });
 }
 
 RefPtr<PadItem> PadItem::create (const RefPtr<Pad>& model, const RefPtr<Goocanvas::Item>& parent)
