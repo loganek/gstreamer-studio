@@ -16,7 +16,6 @@ int main (int argc, char *argv[])
 {
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
-  puts (LOCALEDIR);
   textdomain (PACKAGE);
   bind_textdomain_codeset(PACKAGE, "utf-8");
   Gst::init (argc, argv);
