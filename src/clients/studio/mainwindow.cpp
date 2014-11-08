@@ -26,6 +26,18 @@ MainWindow::MainWindow ()
       return true;
     });
 
+    get_widget<Gtk::ToolButton> ("addElementToolButton")->signal_clicked ().connect ([this] {
+      try
+      {
+        ElementItem::create(Gst::ElementFactory::create_element(plugins_inspector->get_selected ()),
+          canvas.get_root_item ());
+      }
+      catch (const std::runtime_error& ex)
+      {
+        Logger::get_instance ()->log (ex, LogLevel::WARN);
+      }
+    });
+
     get_widget<Gtk::MenuItem> ("quitMenuItem")->signal_button_press_event ().connect ([this, logger] (GdkEventButton*) {
       get_window ()->hide ();
       return true;
@@ -38,8 +50,6 @@ MainWindow::MainWindow ()
     canvas.set_bounds(0, 0, 1000, 1000);
     canvas.show();
 
-    auto c = ElementItem::create(Gst::ElementFactory::create_element("identity", "i"), canvas.get_root_item ());
-    auto c2 = ElementItem::create(Gst::ElementFactory::create_element("identity"), canvas.get_root_item ());
     get_widget<ScrolledWindow>("canvasScrolledWindow")->add(canvas);
   }
   catch (const FileError& ex)

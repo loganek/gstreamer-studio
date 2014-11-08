@@ -40,6 +40,8 @@ public:
   PluginInspector (Gtk::TreeView *tree, Gtk::SearchEntry *searchbox);
   virtual ~PluginInspector ();
 
+  Glib::ustring get_selected () const;
+
 };
 }
 }

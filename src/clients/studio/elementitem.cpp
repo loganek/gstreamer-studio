@@ -41,6 +41,9 @@ ElementItem::ElementItem (const RefPtr<Element>& model)
 
 RefPtr<ElementItem> ElementItem::create (const RefPtr<Element>& model, const Glib::RefPtr<Goocanvas::Item>& parent)
 {
+  if (!model)
+    throw std::runtime_error ("trying to create element based on empty model");
+
   RefPtr<ElementItem> item (new ElementItem (model));
   parent->add_child (item);
   item->redraw ();

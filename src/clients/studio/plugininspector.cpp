@@ -106,3 +106,17 @@ PluginInspector::PluginsModelColumns::PluginsModelColumns ()
 {
   add(plugin_name);
 }
+
+Glib::ustring PluginInspector::get_selected () const
+{
+  auto rows = view->get_selection ()->get_selected_rows ();
+
+  if (rows.size () == 0)
+    throw std::runtime_error ("no item selected");
+
+  Glib::ustring selected;
+  model->get_iter (rows.front ())->get_value (0, selected);
+
+  return selected;
+
+}
