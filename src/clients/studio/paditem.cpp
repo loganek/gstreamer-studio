@@ -8,6 +8,7 @@
 #include "paditem.h"
 #include "linkitem.h"
 #include "sigcpp_lambda_hack.h"
+#include <goocanvas-2.0/goocanvas.h>
 
 using namespace Goocanvas;
 using namespace GstreamerStudio::Clients;
