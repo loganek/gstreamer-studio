@@ -39,6 +39,7 @@ MainWindow::MainWindow ()
     canvas.show();
 
     auto c = ElementItem::create(Gst::ElementFactory::create_element("identity", "i"), canvas.get_root_item ());
+    auto c2 = ElementItem::create(Gst::ElementFactory::create_element("identity"), canvas.get_root_item ());
     get_widget<ScrolledWindow>("canvasScrolledWindow")->add(canvas);
   }
   catch (const FileError& ex)

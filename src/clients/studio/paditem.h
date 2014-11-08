@@ -24,6 +24,8 @@ private:
   bool linking = false;
 
   void init ();
+  static Glib::Quark parent_pad_obj;
+
 protected:
   explicit PadItem (const Glib::RefPtr<Gst::Pad>& model);
 
