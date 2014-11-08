@@ -21,7 +21,7 @@ ElementItem::ElementItem (const RefPtr<Element>& model)
   signal_motion_notify_event ().connect ([this] (const Glib::RefPtr<Goocanvas::Item>& item,GdkEventMotion* motion) {
     if (grabbed)
       ElementItem::get_from_child (item)->translate (motion->x - grab_point.x, motion->y - grab_point.y);
-    return false;
+    return true;
   });
 
   signal_button_press_event ().connect ([this] (const Glib::RefPtr<Goocanvas::Item>& item, GdkEventButton* evt) {
@@ -90,6 +90,7 @@ void ElementItem::init()
 
   bounding_rectangle->property_height () = std::max (lh, rh);
   bounding_rectangle->property_width () = std::max (lw+rw, title_width);
+  bool need_shift = lw+rw < title_width;
 
   int mm =get_n_children();
   for (int i = 0; i < mm; i++)
@@ -99,6 +100,8 @@ void ElementItem::init()
       if (a->is_sink ())
         continue;
       double mw = get_width ();
+      if (need_shift)
+        mw -= a->get_width ();
       a->translate (mw, 0);
     }
   }
