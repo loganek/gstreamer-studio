@@ -22,13 +22,14 @@ PadItem::PadItem (const RefPtr<Pad>& model)
   model (model)
 {
   signal_button_press_event ().connect ([this] (const Glib::RefPtr<Goocanvas::Item>& item, GdkEventButton* evt) {
-    RefPtr<PadItem> this_pad (this); this_pad->reference ();
     linking = true;
     Point<double> begin (
       get_bounds ().get_x2 (),
       (get_bounds ().get_y2 () + get_bounds ().get_y1 ()) / 2),
       end (evt->x_root, evt->y_root);
     link = LinkItem::create (begin, end, this->get_parent());
+    item->get_canvas()->pointer_grab(item, static_cast<Gdk::EventMask>(Gdk::POINTER_MOTION_MASK | Gdk::BUTTON_RELEASE_MASK),
+      Gdk::Cursor::create(Gdk::HAND2), GDK_CURRENT_TIME);
     return true;
   });
 
@@ -39,24 +40,54 @@ PadItem::PadItem (const RefPtr<Pad>& model)
       pts.set_coordinate(1, motion->x_root,  motion->y_root);
       link->property_points () = pts;
 
-      RefPtr<Item> underitem2 = Glib::wrap(goo_canvas_get_item_at(item->get_canvas()->gobj(), // TODO I don't know why, but
-        motion->x_root, motion->y_root, false), true);                                        // but ->get_item_at doesn't work sometimes.
-      RefPtr<ItemSimple> underitem = underitem.cast_static(underitem2);
-      if (underitem)
-      {
-        auto underpad = reinterpret_cast<PadItem*>(underitem->get_data (parent_pad_obj));
-        if (underpad)
-          puts ("yeah");
-      }
+      auto underpad = check_underpad (motion->x_root, motion->y_root);
+
+      if (underpad && underpad != this)
+        puts ("ok, I'll do something here in the future"); // todo checking whether can link or not
+
+      return true;
     }
     return false;
   });
 
   signal_button_release_event ().connect ([this] (const Glib::RefPtr<Goocanvas::Item>& item, GdkEventButton* evt) {
-    linking = false;
-    link->remove ();
+    auto underpad = check_underpad (evt->x_root, evt->y_root);
+
+    if (underpad && underpad != this)
+      if (get_pad_model()->can_link(underpad->get_pad_model()))
+      {
+        linking = false;
+      }
+    if (linking)
+    {
+      link->remove ();
+      linking = false;
+    }
     return false;
   });
+
+  signal_enter_notify_event ().connect ([this](const Glib::RefPtr<Item>& item, GdkEventCrossing*){
+    rect->property_fill_color ().set_value ("pink");
+    return false;
+  });
+
+  signal_leave_notify_event ().connect ([this](const Glib::RefPtr<Item>&,GdkEventCrossing*){
+    if (!linking)
+      rect->property_fill_color ().set_value ("lightgreen");
+    return false;
+  });
+}
+
+PadItem* PadItem::check_underpad(double x, double y) const
+{
+  // TODO I don't know why, but ->get_item_at doesn't work sometimes.
+  RefPtr<Item> underitem2 = Glib::wrap(goo_canvas_get_item_at(const_cast<GooCanvas*>(get_canvas()->gobj()),
+    x, y, false), true);
+
+  RefPtr<ItemSimple> underitem = underitem.cast_static(underitem2);
+  return (underitem) ?
+    reinterpret_cast<PadItem*>(underitem->get_data (parent_pad_obj)) :
+    nullptr;
 }
 
 RefPtr<PadItem> PadItem::create (const RefPtr<Pad>& model, const RefPtr<Goocanvas::Item>& parent)
@@ -74,13 +105,13 @@ void PadItem::init ()
   t->set_data(parent_pad_obj, this);
   add_child (t);
   auto bounds = RefPtr<Item>::cast_static (t)->get_bounds (); // todo bugzilla workaround
-  auto r = Rect::create (bounds.get_x1 (), bounds.get_y1 (),
+  rect = Rect::create (bounds.get_x1 (), bounds.get_y1 (),
 		  bounds.get_x2 () - bounds.get_x1 (), bounds.get_y2 () - bounds.get_y1 ());
-  r->property_fill_color ().set_value ("lightgreen");
+  rect->property_fill_color ().set_value ("lightgreen");
 
-  r->set_data(parent_pad_obj, this);
-  add_child (r);
-  r->lower ();
+  rect->set_data(parent_pad_obj, this);
+  add_child (rect);
+  rect->lower ();
 }
 
 double PadItem::get_height () const

@@ -21,10 +21,13 @@ class PadItem : public Goocanvas::Group
 private:
   Glib::RefPtr<Gst::Pad> model;
   Glib::RefPtr<LinkItem> link;
+  Glib::RefPtr<Goocanvas::Rect> rect;
   bool linking = false;
 
   void init ();
   static Glib::Quark parent_pad_obj;
+
+  PadItem* check_underpad(double x, double y) const;
 
 protected:
   explicit PadItem (const Glib::RefPtr<Gst::Pad>& model);
@@ -37,6 +40,7 @@ public:
   double get_width () const;
 
   bool is_sink () const;
+  Glib::RefPtr<Gst::Pad> get_pad_model () const { return model; }
 };
 
 }
