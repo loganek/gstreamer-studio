@@ -109,14 +109,16 @@ PluginInspector::PluginsModelColumns::PluginsModelColumns ()
 
 Glib::ustring PluginInspector::get_selected () const
 {
-  auto rows = view->get_selection ()->get_selected_rows ();
+  auto selection = view->get_selection ();
+  Glib::RefPtr<Gtk::TreeModel> m;
 
-  if (rows.size () == 0)
+  if (!selection)
     throw std::runtime_error ("no item selected");
 
-  Glib::ustring selected;
-  model->get_iter (rows.front ())->get_value (0, selected);
+  auto it = selection->get_selected(m);
 
-  return selected;
-
+  if (it)
+    return it->get_value(model_columns.plugin_name);
+  else
+    throw std::runtime_error ("can't get selected item");
 }
