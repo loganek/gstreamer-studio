@@ -31,13 +31,14 @@ private:
   Glib::RefPtr<Gtk::TreeStore> model;
   Gtk::TreeView *view;
   Gtk::SearchEntry *searchbox;
+  Gtk::Button *infobtn;
 
   void fill_tree ();
   bool filter_func(const Gtk::TreeModel::const_iterator& it);
   bool check_children_filter (Gtk::TreeModel::iterator& it);
 
 public:
-  PluginInspector (Gtk::TreeView *tree, Gtk::SearchEntry *searchbox);
+  PluginInspector (Gtk::TreeView *tree, Gtk::SearchEntry *searchbox, Gtk::Button *infobtn);
   virtual ~PluginInspector ();
 
   Glib::ustring get_selected () const;

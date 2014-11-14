@@ -45,7 +45,8 @@ MainWindow::MainWindow ()
 
     TreeView *inspector_tree = get_widget<TreeView> ("pluginsInspectorTreeView");
     SearchEntry *inspector_searchbox = get_widget<SearchEntry>("searchPluginSearchEntry");
-    plugins_inspector = std::make_shared<PluginInspector> (inspector_tree, inspector_searchbox);
+    Button *plugin_info_button = get_widget<Button>("pluginInfoButton");
+    plugins_inspector = std::make_shared<PluginInspector> (inspector_tree, inspector_searchbox, plugin_info_button);
     canvas.set_size_request(100, 100);
     canvas.set_bounds(0, 0, 1000, 1000);
     canvas.show();

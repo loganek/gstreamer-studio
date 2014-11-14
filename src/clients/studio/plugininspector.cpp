@@ -11,16 +11,24 @@ using namespace Gtk;
 using GstreamerStudio::Core::LogLevel;
 
 
-PluginInspector::PluginInspector (TreeView* tree, SearchEntry *searchbox)
+PluginInspector::PluginInspector (TreeView* tree, SearchEntry *searchbox, Button *infobtn)
 : view (tree),
-  searchbox(searchbox)
+  searchbox (searchbox),
+  infobtn (infobtn)
 {
   logger = GstreamerStudio::Core::Logger::get_instance ();
   plugin_info = new GstreamerStudio::Core::PluginInfo ();
 
   view->signal_row_activated ().connect ([this] (const TreeModel::Path& path, TreeViewColumn*) {
-    TreeModel::iterator it = view->get_model ()->get_iter (path);
 
+  });
+
+  infobtn->signal_clicked ().connect ([this] {
+    auto selection = view->get_selection ();
+    Glib::RefPtr<Gtk::TreeModel> m;
+    if (!selection)
+      return;
+    auto it = selection->get_selected(m);
     if (!it)
     {
       return;
