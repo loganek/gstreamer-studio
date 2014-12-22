@@ -2,6 +2,7 @@
 #include "sigcpp_lambda_hack.h"
 #include "plugininspector.h"
 #include "elementitem.h"
+#include "elementinfo.h"
 
 #include "core/logger.h"
 
@@ -47,6 +48,10 @@ MainWindow::MainWindow ()
     SearchEntry *inspector_searchbox = get_widget<SearchEntry>("searchPluginSearchEntry");
     Button *plugin_info_button = get_widget<Button>("pluginInfoButton");
     plugins_inspector = std::make_shared<PluginInspector> (inspector_tree, inspector_searchbox, plugin_info_button);
+
+    TreeView *selected_element_tree = get_widget<TreeView> ("selectedElementTreeView");
+    selected_element_info = std::make_shared<ElementInfo>(selected_element_tree);
+
     canvas.set_size_request(100, 100);
     canvas.set_bounds(0, 0, 1000, 1000);
     canvas.show();
