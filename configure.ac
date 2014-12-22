@@ -32,6 +32,7 @@ CXXFLAGS="-Wall -Werror -std=c++11 $CXXFLAGS"
 AC_CONFIG_FILES([ po/Makefile.in
 	Makefile
 	src/core/Makefile
+	src/utils/Makefile
 	src/clients/studio/Makefile
 ])
 

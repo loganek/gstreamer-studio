@@ -59,6 +59,7 @@ src/stamp-h1
 # /src/clients/studio
 /src/clients/studio/.deps
 /src/clients/studio/gstreamer-studio
+/src/utils/.deps
 
 # /src/core
 /src/core/.deps
