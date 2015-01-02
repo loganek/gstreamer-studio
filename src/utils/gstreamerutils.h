@@ -38,6 +38,9 @@ private:
   static ObjectNodeInfo parse_caps(const Glib::RefPtr<Gst::Caps>& caps);
 public:
   static std::map<std::string, ObjectNodeInfo> get_object_info(const Glib::RefPtr<Gst::Object>& object);
+  static std::vector<std::string> get_path(const Glib::RefPtr<Gst::Object>& obj);
+  static Glib::RefPtr<Gst::Object> find_element(std::vector<std::string> path,
+    const Glib::RefPtr<Gst::Element>& model);
 };
 
 }

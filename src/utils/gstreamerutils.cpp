@@ -105,3 +105,57 @@ ObjectNodeInfo::MapInfo GstreamerUtils::parse_pad_template(const RefPtr<PadTempl
     {"direction", std::string(presence == PAD_ALWAYS ? "ALWAYS" : (presence == PAD_REQUEST ? "REQUEST" : "SOMETIMES"))}
   };
 }
+
+std::vector<std::string> GstreamerUtils::get_path(const RefPtr<Object>& obj)
+{
+  RefPtr<Element> current_element;
+  std::vector<std::string> path;
+
+  if (obj->is_pad())
+  {
+    current_element = RefPtr<Pad>::cast_static(obj)->get_parent_element();
+    path.push_back(obj->get_name().c_str());
+  }
+  else if (!obj->is_element())
+    throw std::runtime_error("cannot get path of non-element and non-pad object");
+  else
+    current_element = RefPtr<Element>::cast_static(obj);
+
+  do
+  {
+    path.push_back(current_element->get_name().c_str());
+    current_element = RefPtr<Element>::cast_static(current_element->get_parent());
+  } while (current_element);
+
+  reverse(path.begin(), path.end());
+
+  return path;
+}
+
+RefPtr<Object> GstreamerUtils::find_element(std::vector<std::string> path, const RefPtr<Element>& model)
+{
+  if (path.size() == 0)
+    return model;
+
+  if (path.size() == 1)
+  {
+    if (model->is_bin())
+    {
+      RefPtr<Object> o = RefPtr<Bin>::cast_static(model)->get_child(path[0]);
+      if (o) return o;
+    }
+    return model->get_static_pad(path[0]);
+  }
+
+  if (!model->is_bin())
+	  return RefPtr<Object>();
+
+  auto model_bin = RefPtr<Bin>::cast_static(model);
+  auto child = model_bin->get_child(path[0]);
+
+  if (!child)
+    return child;
+
+  path.erase(path.begin());
+  return find_element(path, RefPtr<Element>::cast_static(child));
+}
