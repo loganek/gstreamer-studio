@@ -30,8 +30,9 @@ MainWindow::MainWindow ()
     get_widget<Gtk::ToolButton> ("addElementToolButton")->signal_clicked ().connect ([this] {
       try
       {
-        ElementItem::create(Gst::ElementFactory::create_element(plugins_inspector->get_selected ()),
+        auto e = ElementItem::create(Gst::ElementFactory::create_element(plugins_inspector->get_selected ()),
           canvas.get_root_item ());
+        e->register_observer(this);
       }
       catch (const std::runtime_error& ex)
       {
@@ -97,4 +98,9 @@ Gtk::ApplicationWindow* MainWindow::get_window ()
   }
 
   return window;
+}
+
+void MainWindow::selection_changed (IObservable<ISelectableObserver>* sender, const RefPtr<Gst::Object>& selected)
+{
+  selected_element_info->update_info (selected);
 }

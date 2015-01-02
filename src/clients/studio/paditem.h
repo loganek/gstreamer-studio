@@ -9,6 +9,9 @@
 #define PADITEM_H_
 
 #include "linkitem.h"
+#include "iselectableobserver.h"
+
+#include "core/IObservable.h"
 
 #include <goocanvasmm-2.0/goocanvasmm.h>
 #include <gstreamermm.h>
@@ -16,7 +19,7 @@
 namespace GstreamerStudio {
 namespace Clients {
 
-class PadItem : public Goocanvas::Group
+class PadItem : public Goocanvas::Group, public Core::IObservable<ISelectableObserver>
 {
 private:
   Glib::RefPtr<Gst::Pad> model;

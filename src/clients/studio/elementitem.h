@@ -9,6 +9,8 @@
 #define ELEMENTITEM_H_
 
 #include "point.h"
+#include "iselectableobserver.h"
+#include "paditem.h"
 
 #include <goocanvasmm-2.0/goocanvasmm.h>
 #include <gstreamermm.h>
@@ -16,12 +18,13 @@
 namespace GstreamerStudio {
 namespace Clients {
 
-class ElementItem : public Goocanvas::Group
+class ElementItem : public Goocanvas::Group, public Core::IObservable<ISelectableObserver>
 {
 private:
   Glib::RefPtr<Gst::Element> model;
   bool grabbed = false;
   Point<double> grab_point;
+  std::set<Glib::RefPtr<PadItem>> pads;
 
   Glib::RefPtr<Goocanvas::Rect> bounding_rectangle;
   Glib::RefPtr<Goocanvas::Text> title;
@@ -40,6 +43,23 @@ public:
   // todo ough, copy&paste from PadItem class
   double get_height () const;
   double get_width () const;
+
+  void register_observer (ISelectableObserver* observer) override
+  {
+    IObservable<ISelectableObserver>::register_observer (observer);
+
+    for (auto p : pads)
+      p->register_observer (observer);
+  }
+
+  void unregister_observer (ISelectableObserver* observer) override
+  {
+    for (auto p : pads)
+      p->unregister_observer (observer);
+
+    IObservable<ISelectableObserver>::unregister_observer (observer);
+  }
+
 };
 
 }

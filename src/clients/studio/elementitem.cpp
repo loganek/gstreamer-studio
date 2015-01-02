@@ -6,7 +6,7 @@
  */
 
 #include "elementitem.h"
-#include "paditem.h"
+
 #include "sigcpp_lambda_hack.h"
 
 using namespace GstreamerStudio::Clients;
@@ -29,6 +29,9 @@ ElementItem::ElementItem (const RefPtr<Element>& model)
     grabbed = true;
     grab_point.update (evt->x, evt->y);
     item->get_canvas ()->pointer_grab (item, (Gdk::EventMask)(GDK_POINTER_MOTION_MASK | GDK_BUTTON_RELEASE_MASK), cur, evt->time);
+
+    notify<const RefPtr<Gst::Object>&>(&ISelectableObserver::selection_changed, this->model);
+
     return false;
   });
 
@@ -74,6 +77,7 @@ void ElementItem::init()
   {
     RefPtr<ElementItem> e (this); e->reference ();
     auto pad_item = PadItem::create (*sink_iterator, e);
+    pads.insert (pad_item);
     pad_item->translate (0, lh);
     lh += pad_item->get_height ();
     lw = std::max (pad_item->get_width (), lw);
@@ -86,6 +90,7 @@ void ElementItem::init()
   {
     RefPtr<ElementItem> e (this); e->reference ();
     auto pad_item = PadItem::create (*src_iterator, e);
+    pads.insert (pad_item);
     pad_item->translate (0, rh);
     rh += pad_item->get_height ();
     rw = std::max (pad_item->get_width (), rw);

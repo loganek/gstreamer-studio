@@ -23,6 +23,7 @@ PadItem::PadItem (const RefPtr<Pad>& model)
 {
   signal_button_press_event ().connect ([this] (const Glib::RefPtr<Goocanvas::Item>& item, GdkEventButton* evt) {
     linking = true;
+    notify<const RefPtr<Gst::Object>&>(&ISelectableObserver::selection_changed, this->model);
     Point<double> begin (
       get_bounds ().get_x2 (),
       (get_bounds ().get_y2 () + get_bounds ().get_y1 ()) / 2),

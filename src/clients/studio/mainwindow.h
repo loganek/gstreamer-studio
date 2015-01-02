@@ -2,6 +2,8 @@
 #define GUI_MAIN_WINDOW_H
 
 #include "buildablegtk.h"
+#include "iselectableobserver.h"
+
 #include "core/IGui.h"
 
 #include <gtkmm.h>
@@ -15,7 +17,7 @@ namespace Clients {
 class PluginInspector;
 class ElementInfo;
 
-class MainWindow : public BuildableGtk, public Core::IGui
+class MainWindow : public BuildableGtk, public Core::IGui, public ISelectableObserver
 {
 private:
   Gtk::ApplicationWindow* window = nullptr;
@@ -23,6 +25,8 @@ private:
   std::shared_ptr<PluginInspector> plugins_inspector;
   std::shared_ptr<ElementInfo> selected_element_info;
   Goocanvas::Canvas canvas;
+
+  void selection_changed (Core::IObservable<ISelectableObserver>* sender, const Glib::RefPtr<Gst::Object>& selected) override;
 
 public:
   MainWindow ();

@@ -20,7 +20,6 @@ ElementInfo::ElementInfo(TreeView* tree)
   tree->append_column("Key", model_columns.key);
   tree->append_column("Value", model_columns.value);
   tree->set_model (filter);
-  update_info(Gst::ElementFactory::create_element("videotestsrc")->get_static_pad("src"));
 }
 
 void ElementInfo::update_info(const Glib::RefPtr<Gst::Object>& obj)
