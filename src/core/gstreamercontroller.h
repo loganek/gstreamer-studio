@@ -20,11 +20,11 @@ namespace Core {
 class GstreamerController
 {
 private:
-  const Glib::RefPtr<Gst::Pipeline> master_model;
+  Glib::RefPtr<Gst::Pipeline> master_model; // todo should be const?
   Glib::RefPtr<Gst::Bin> current_model;
   std::vector<Glib::RefPtr<Gst::Pad>> sometimes_pads;
   std::set<IModelObserver*> observers;
-  void set_watch_method(const Glib::RefPtr<Gst::Element>& element);
+
   bool bus_method(const Glib::RefPtr<Gst::Bus>& bus, const Glib::RefPtr<Gst::Message>& message);
 
   template<typename ...Args>
@@ -35,7 +35,7 @@ private:
   }
 
 public:
-  GstreamerController(const Glib::RefPtr<Gst::Pipeline>& master_model);
+  GstreamerController(const std::string& model_name, int argc = -1, char** argv = nullptr);
   virtual ~GstreamerController(){}
   Glib::RefPtr<Gst::Pipeline> get_master_model() const;
   Glib::RefPtr<Gst::Bin> get_current_model() const;
@@ -43,7 +43,6 @@ public:
   void export_bin_to_file(const std::string& filename, int graph_details, bool current_model);
   void register_model_observer(IModelObserver* observer);
   void unregister_model_observer(IModelObserver* observer);
-  void add_sometimes_pad(const Glib::RefPtr<Gst::Pad>& pad);
 };
 
 }

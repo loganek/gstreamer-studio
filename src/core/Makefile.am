@@ -3,6 +3,7 @@ libgstreamer_studio_core_a_SOURCES = logger.cpp \
 										plugininfo.cpp \
 										propertycontainer.cpp \
 										baseproperty.cpp \
-										gstreamercontroller.cpp
+										gstreamercontroller.cpp \
+										controller.cpp
 
 libgstreamer_studio_core_a_CPPFLAGS = $(GSTREAMERMM_CFLAGS) -I../
