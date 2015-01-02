@@ -32,13 +32,13 @@ protected:
 public:
   virtual ~IObservable () {}
 
-  void register_observer (OBSERVER* observer)
+  virtual void register_observer (OBSERVER* observer)
   {
     if (!observers.insert(observer).second)
       throw std::runtime_error("Cannot register observer");
   }
 
-  void unregister_observer (OBSERVER* observer)
+  virtual void unregister_observer (OBSERVER* observer)
   {
     if (!observers.erase (observer))
       throw std::runtime_error("Cannot unregister observer");
