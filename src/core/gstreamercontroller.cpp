@@ -63,15 +63,3 @@ void GstreamerController::export_bin_to_file(const std::string& filename, int gr
   gst_debug_bin_to_dot_file(is_current_model ? current_model->gobj() : GST_BIN(master_model->gobj()),
     (GstDebugGraphDetails)graph_details, filename.c_str());
 }
-
-void GstreamerController::register_model_observer(IModelObserver* observer)
-{
-  if (!observers.insert(observer).second)
-    throw std::runtime_error("Cannot register observer");
-}
-
-void GstreamerController::unregister_model_observer(IModelObserver* observer)
-{
-  if (!observers.erase(observer))
-    throw std::runtime_error("Cannot unregister observer");
-}
