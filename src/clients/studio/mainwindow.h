@@ -37,6 +37,8 @@ public:
   {
     this->controller = controller;
   }
+
+  void current_model_changed (const std::string& path) override;
 };
 
 }

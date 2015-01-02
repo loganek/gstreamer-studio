@@ -20,6 +20,15 @@ MainWindow::MainWindow ()
   {
     builder = Builder::create_from_file ("src/clients/studio/ui/mainwindow.glade");
 
+    get_widget<Button> ("upModelButton")->signal_clicked ().connect ([this] {
+      controller->update_current_model (RefPtr<Gst::Bin>::cast_dynamic (
+        controller->get_current_model ()->get_parent ()));
+    });
+
+    get_widget<Button> ("setNewModelButton")->signal_clicked().connect ([this] {
+      controller->update_current_model (get_widget<Entry> ("currentModelPathEntry")->get_text ());
+    });
+
     get_widget<Gtk::MenuItem> ("aboutMenuItem")->signal_button_press_event ().connect ([this] (GdkEventButton*) {
       Gtk::AboutDialog* about = get_widget<Gtk::AboutDialog> ("aboutDialog");
       about->run ();
@@ -103,4 +112,9 @@ Gtk::ApplicationWindow* MainWindow::get_window ()
 void MainWindow::selection_changed (IObservable<ISelectableObserver>* sender, const RefPtr<Gst::Object>& selected)
 {
   selected_element_info->update_info (selected);
+}
+
+void MainWindow::current_model_changed (const std::string& path)
+{
+  get_widget<Entry> ("currentModelPathEntry")->set_text (path);
 }
