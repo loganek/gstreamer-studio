@@ -34,8 +34,6 @@ public:
   void export_bin_to_file(const std::string& filename,
     int graph_details, bool is_master_model);
 
-  Glib::RefPtr<Gst::Bin> get_current_model() const;
-
   void register_model_observer(IModelObserver* observer);
   void unregister_model_observer(IModelObserver* observer);
 };

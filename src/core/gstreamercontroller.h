@@ -20,7 +20,7 @@ namespace Core {
 
 class GstreamerController : IObservable<IModelObserver>
 {
-private:
+protected:
   Glib::RefPtr<Gst::Pipeline> master_model; // todo should be const?
   Glib::RefPtr<Gst::Bin> current_model;
   std::vector<Glib::RefPtr<Gst::Pad>> sometimes_pads;

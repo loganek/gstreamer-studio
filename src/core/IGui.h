@@ -19,7 +19,8 @@ class IGui
 {
 public:
   virtual ~IGui(){}
-  virtual void set_controller(std::shared_ptr<Controller> controller) = 0;
+  virtual void set_controller (std::shared_ptr<Controller> controller) = 0;
+  virtual void current_model_changed (const std::string& path) = 0;
 };
 
 }
