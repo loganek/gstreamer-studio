@@ -5,6 +5,9 @@ AC_INIT(
 	[gstreamer-studio],
 	[http://github.com/loganek/gstreamer-studio])
 
+UTILS_DIR=src/utils
+perl $UTILS_DIR/enumutilsgenerator.pl $UTILS_DIR/../leparxer/lexer.h $UTILS_DIR/enumutils.h $UTILS_DIR/enumutils.cpp
+
 AC_PREREQ(2.69)
 
 AC_CONFIG_AUX_DIR(build)
@@ -34,6 +37,7 @@ AC_CONFIG_FILES([ po/Makefile.in
 	src/core/Makefile
 	src/utils/Makefile
 	src/clients/studio/Makefile
+	src/leparxer/Makefile
 ])
 
 AC_OUTPUT
