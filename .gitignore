@@ -63,3 +63,6 @@ src/stamp-h1
 
 # /src/core
 /src/core/.deps
+
+# /src/leparxer
+/src/leparxer/.deps
