@@ -6,6 +6,7 @@
  */
 
 #include "lexer.h"
+#include "utils/enumutils.h"
 
 #include <algorithm>
 #include <stdexcept>

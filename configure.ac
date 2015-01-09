@@ -38,6 +38,7 @@ AC_CONFIG_FILES([ po/Makefile.in
 	src/utils/Makefile
 	src/clients/studio/Makefile
 	src/leparxer/Makefile
+	test/Makefile
 ])
 
 AC_OUTPUT
